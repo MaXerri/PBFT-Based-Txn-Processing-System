@@ -1,0 +1,11 @@
+Set Number,Transactions,Live,Byzantine,Attack
+1,"(A, C, 1)","[n1, n2, n3, n4, n5, n6, n7]","[n4, n6]",[crash]
+,"(C, E, 2)",,,
+,"(B, F, 3)",,,
+,(G),,,
+,"(J, H, 5)",,,
+2,"(A, E, 6)","[n1, n2, n3, n5, n6, n7]","[n1, n3]",[time; dark(n2)]
+,(C),,,
+,"(D, I, 8)",,,
+3,"(C, D, 6)","[n1, n2, n3, n4, n5]",[],[]
+,"(F, A, 2)",,,
