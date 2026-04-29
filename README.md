@@ -2,17 +2,17 @@
 
 A small application implementing a linear variant of Practical Byzantine Fault Tolerance (PBFT). The protocol provides state-machine replication with tolerance to Byzantine nodes under different attacks including crash, signature, equivocation, in-dark and time. 
 
-## Bonuses Implemented
- 1. Checkpointing Mechanism - so for new views not all prepared messages have to be sent
-
- 2. Threshold Signatures - Using threshold signatures, the collector message size becomes
+## Features Implemented
+ 1. Checkpointing Mechanism - Allows replicas to transfer only checkpointed state summaries during view changes, avoiding the need to resend all previously prepared messages.
+ 2. Phase Linearization - Replaces the all-to-all communication in the prepare and commit phases with a collector-based pattern to achieve linear message complexity. Instead of each replica broadcasting to all others (O(n²)), replicas send their prepare/commit messages to a designated collector, which aggregates 2f + 1 signatures and broadcasts a single certificate back to all replicas. This preserves PBFT safety via quorum intersection while reducing communication overhead to O(n) per phase
+ 3. Threshold Signatures - Using threshold signatures, the collector message size becomes
 constant, e.g., instead of sending 2f + 1 commit messages to all backups to let them
 know the message has been committed, it sends a single commit message signed by
 2f + 1 nodes using a threshold signature.
 
-3. Optimistic Phase reduction - if 3f other prepares are gathered (in this case that is all nodes prepare the message) the third phase can be omitted and replicas can directly commit the request. Otherwise falls back onto normal protocol 
+4. Optimistic Phase reduction - if 3f other prepares are gathered (in this case that is all nodes prepare the message) the third phase can be omitted and replicas can directly commit the request. Otherwise falls back onto normal protocol 
 
-4. Benchamrking - Tested performance of the application with larger number of transactions and accounts. Throughput, latency, cpu utilization and memory usage per node process were logged.
+5. Benchamrking - Tested performance of the application with larger number of transactions and accounts. Throughput, latency, cpu utilization and memory usage per node process were logged.
 
 
 ## How to run
@@ -71,4 +71,8 @@ Benchmark
 ## Logs
 
 logs for message types should be conssitent with those described in the notes and the paper 
+
+## References
+
+1. https://css.csail.mit.edu/6.824/2014/papers/castro-practicalbft.pdf
 
